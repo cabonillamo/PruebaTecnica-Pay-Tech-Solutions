@@ -19,7 +19,7 @@ namespace Infraestructure.Model
         public string TITULO { get; set; }
         public string DESCRIPCION { get; set; }
         public System.DateTime FECHA_REGISTRO { get; set; }
-        public System.DateTime FECHA_TERMINADA { get; set; }
+        public Nullable<System.DateTime> FECHA_TERMINADA { get; set; }
     
         public virtual Estado_Tarea Estado_Tarea { get; set; }
     }

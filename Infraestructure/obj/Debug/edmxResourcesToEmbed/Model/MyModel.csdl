@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PayTechSolutionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Estado_Tarea">
+    <Key>
+      <PropertyRef Name="ID_ESTADO_TAREA" />
+    </Key>
+    <Property Name="ID_ESTADO_TAREA" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Estado_Tarea" ToRole="Trabajo" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trabajo">
+    <Key>
+      <PropertyRef Name="ID_TAREA" />
+    </Key>
+    <Property Name="ID_TAREA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ESTADO_TAREA" Type="Int32" Nullable="false" />
+    <Property Name="TITULO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FECHA_TERMINADA" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Estado_Tarea" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Trabajo" ToRole="Estado_Tarea" />
+  </EntityType>
+  <Association Name="FK_Trabajo_Estado_Tarea">
+    <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado_Tarea">
+        <PropertyRef Name="ID_ESTADO_TAREA" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="ID_ESTADO_TAREA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PayTechSolutionsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+    <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
+      <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -26,12 +26,12 @@
           <Key>
             <PropertyRef Name="ID_TAREA" />
           </Key>
-          <Property Name="ID_TAREA" Type="int" Nullable="false" />
+          <Property Name="ID_TAREA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_ESTADO_TAREA" Type="int" Nullable="false" />
           <Property Name="TITULO" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
-          <Property Name="FECHA_TERMINADA" Type="date" Nullable="false" />
+          <Property Name="FECHA_TERMINADA" Type="date" />
         </EntityType>
         <Association Name="FK_Trabajo_Estado_Tarea">
           <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
@@ -81,12 +81,12 @@
           <Key>
             <PropertyRef Name="ID_TAREA" />
           </Key>
-          <Property Name="ID_TAREA" Type="Int32" Nullable="false" />
+          <Property Name="ID_TAREA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_ESTADO_TAREA" Type="Int32" Nullable="false" />
           <Property Name="TITULO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FECHA_TERMINADA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FECHA_TERMINADA" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Estado_Tarea" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Trabajo" ToRole="Estado_Tarea" />
         </EntityType>
         <Association Name="FK_Trabajo_Estado_Tarea">

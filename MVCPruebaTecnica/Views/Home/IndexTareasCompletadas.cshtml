@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Infraestructure.Model.Trabajo>
+
+@{
+    ViewBag.Title = "IndexTareasCompletadas";
+}
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Tareas Completadas</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-2"></i>Crear Tarea
+        </a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Fecha de Registro</th>
+                <th>Fecha de Terminada</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID_TAREA)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TITULO)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DESCRIPCION)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FECHA_REGISTRO)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FECHA_TERMINADA)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Estado_Tarea.DESCRIPCION)</td>
+
+                    <td>
+                        <div class="d-flex justify-content-center mb-3">
+                            <a href="@Url.Action("IndexAll", "Home", new { id = item.ID_TAREA })" class="btn @(item.ID_ESTADO_TAREA == 1 ? "btn-success" : "btn-warning") btn-sm">
+                                <i class="fas @(item.ID_ESTADO_TAREA == 1 ? "fa-check-circle" : "fa-undo-alt") me-2"></i>@(item.ID_ESTADO_TAREA == 1 ? "Se completó" : "Pendiente")
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

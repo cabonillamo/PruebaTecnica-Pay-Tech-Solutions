@@ -22,7 +22,7 @@ namespace Infraestructure.Repository
                 List<Trabajo> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
-                    lista = ctx.Trabajo.Include("Estado_Tarea").Where(g => g.ID_ESTADO_TAREA == 1).ToList<Trabajo>();
+                    lista = ctx.Trabajo.Include("Estado_Tarea").Where(g => g.Estado_Tarea.ID_ESTADO_TAREA == 1).ToList();
                 }
                 return lista;
             }
@@ -76,7 +76,7 @@ namespace Infraestructure.Repository
                 List<Trabajo> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
-                    lista = ctx.Trabajo.Include("Estado_Tarea").Where(g => g.ID_ESTADO_TAREA == 2).ToList<Trabajo>();
+                    lista = ctx.Trabajo.Include("Estado_Tarea").Where(g => g.Estado_Tarea.ID_ESTADO_TAREA == 2).ToList<Trabajo>();
                 }
                 return lista;
             }
@@ -137,14 +137,14 @@ namespace Infraestructure.Repository
                     {
                         //Inserta una Tarea y automaticamente que se guarde con el estado pendiente
                         trabajo.ID_ESTADO_TAREA = 2;
-                        ctx.Trabajo.Add(oTrabajo);
+                        ctx.Trabajo.Add(trabajo);
                         retorno = ctx.SaveChanges();
                     }
                     else
                     {
                         //Editar la tarea ya existente
-                        ctx.Trabajo.Add(oTrabajo);
-                        ctx.Entry(oTrabajo).State = EntityState.Modified;
+                        ctx.Trabajo.Add(trabajo);
+                        ctx.Entry(trabajo).State = EntityState.Modified;
                         retorno = ctx.SaveChanges();
                     }
 

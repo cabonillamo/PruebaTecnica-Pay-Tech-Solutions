@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PayTechSolutionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Estado_Tarea">
+    <Key>
+      <PropertyRef Name="ID_ESTADO_TAREA" />
+    </Key>
+    <Property Name="ID_ESTADO_TAREA" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Trabajo">
+    <Key>
+      <PropertyRef Name="ID_TAREA" />
+    </Key>
+    <Property Name="ID_TAREA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ESTADO_TAREA" Type="int" Nullable="false" />
+    <Property Name="TITULO" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
+    <Property Name="FECHA_TERMINADA" Type="date" />
+  </EntityType>
+  <Association Name="FK_Trabajo_Estado_Tarea">
+    <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado_Tarea">
+        <PropertyRef Name="ID_ESTADO_TAREA" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="ID_ESTADO_TAREA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PayTechSolutionsModelStoreContainer">
+    <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
+      <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
