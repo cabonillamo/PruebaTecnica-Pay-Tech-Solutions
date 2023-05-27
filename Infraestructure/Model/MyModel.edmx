@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PayTechSolutionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estado_Tarea">
+          <Key>
+            <PropertyRef Name="ID_ESTADO_TAREA" />
+          </Key>
+          <Property Name="ID_ESTADO_TAREA" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="ID_TAREA" />
+          </Key>
+          <Property Name="ID_TAREA" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO_TAREA" Type="int" Nullable="false" />
+          <Property Name="TITULO" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
+          <Property Name="FECHA_TERMINADA" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Trabajo_Estado_Tarea">
+          <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Tarea">
+              <PropertyRef Name="ID_ESTADO_TAREA" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="ID_ESTADO_TAREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PayTechSolutionsModelStoreContainer">
+          <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
+            <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PayTechSolutionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estado_Tarea">
+          <Key>
+            <PropertyRef Name="ID_ESTADO_TAREA" />
+          </Key>
+          <Property Name="ID_ESTADO_TAREA" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Estado_Tarea" ToRole="Trabajo" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="ID_TAREA" />
+          </Key>
+          <Property Name="ID_TAREA" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO_TAREA" Type="Int32" Nullable="false" />
+          <Property Name="TITULO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FECHA_TERMINADA" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Estado_Tarea" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Trabajo" ToRole="Estado_Tarea" />
+        </EntityType>
+        <Association Name="FK_Trabajo_Estado_Tarea">
+          <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Tarea">
+              <PropertyRef Name="ID_ESTADO_TAREA" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="ID_ESTADO_TAREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PayTechSolutionsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+          <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
+            <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PayTechSolutionsModelStoreContainer" CdmEntityContainer="PayTechSolutionsEntities">
+          <EntitySetMapping Name="Estado_Tarea">
+            <EntityTypeMapping TypeName="PayTechSolutionsModel.Estado_Tarea">
+              <MappingFragment StoreEntitySet="Estado_Tarea">
+                <ScalarProperty Name="ID_ESTADO_TAREA" ColumnName="ID_ESTADO_TAREA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PayTechSolutionsModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trabajo">
+            <EntityTypeMapping TypeName="PayTechSolutionsModel.Trabajo">
+              <MappingFragment StoreEntitySet="Trabajo">
+                <ScalarProperty Name="ID_TAREA" ColumnName="ID_TAREA" />
+                <ScalarProperty Name="ID_ESTADO_TAREA" ColumnName="ID_ESTADO_TAREA" />
+                <ScalarProperty Name="TITULO" ColumnName="TITULO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="FECHA_TERMINADA" ColumnName="FECHA_TERMINADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
