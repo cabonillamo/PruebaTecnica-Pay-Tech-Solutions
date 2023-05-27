@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PayTechSolutionsModelStoreContainer" CdmEntityContainer="PayTechSolutionsEntities">
+    <EntitySetMapping Name="Borrado_Logico">
+      <EntityTypeMapping TypeName="PayTechSolutionsModel.Borrado_Logico">
+        <MappingFragment StoreEntitySet="Borrado_Logico">
+          <ScalarProperty Name="ID_BORRADO" ColumnName="ID_BORRADO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Estado_Tarea">
       <EntityTypeMapping TypeName="PayTechSolutionsModel.Estado_Tarea">
         <MappingFragment StoreEntitySet="Estado_Tarea">
@@ -29,6 +37,7 @@
           <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
           <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
           <ScalarProperty Name="FECHA_TERMINADA" ColumnName="FECHA_TERMINADA" />
+          <ScalarProperty Name="ID_BORRADO" ColumnName="ID_BORRADO" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

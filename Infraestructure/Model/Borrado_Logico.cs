@@ -12,17 +12,18 @@ namespace Infraestructure.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Trabajo
+    public partial class Borrado_Logico
     {
-        public int ID_TAREA { get; set; }
-        public int ID_ESTADO_TAREA { get; set; }
-        public string TITULO { get; set; }
-        public string DESCRIPCION { get; set; }
-        public System.DateTime FECHA_REGISTRO { get; set; }
-        public Nullable<System.DateTime> FECHA_TERMINADA { get; set; }
-        public Nullable<int> ID_BORRADO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Borrado_Logico()
+        {
+            this.Trabajo = new HashSet<Trabajo>();
+        }
     
-        public virtual Borrado_Logico Borrado_Logico { get; set; }
-        public virtual Estado_Tarea Estado_Tarea { get; set; }
+        public int ID_BORRADO { get; set; }
+        public string DESCRIPCION { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trabajo> Trabajo { get; set; }
     }
 }

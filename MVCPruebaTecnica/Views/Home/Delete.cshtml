@@ -1,7 +1,7 @@
 ﻿@model Infraestructure.Model.Trabajo
 
 @{
-    ViewBag.Title = "Modificar";
+    ViewBag.Title = "Borrado";
 }
 
 <style>
@@ -21,7 +21,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="text-center">Modificar Tareas</h5>
+                            <h5 class="text-center">Finalizar Tareas</h5>
                         </div>
                         <div class="card-body">
                             @using (Html.BeginForm())
@@ -33,7 +33,7 @@
 
                                 <div class="form-group mb-4 position-relative d-flex align-items-center" style="padding-right: 30px;" data-toggle="modal" data-target="#exampleModal">
                                     <label for="ID_ESTADO_TAREA" style="color: rgb(39, 58, 93)">
-
+                                        <i class="fas fa-plus-square" style="margin-right: 5px"></i> 
                                     </label>
                                     @Html.HiddenFor(model => model.ID_ESTADO_TAREA, null)
                                     <a href="#" class="d-flex align-items-center justify-content-center position-absolute end-0 top-50 translate-middle-y text-success" style="right: -20px; margin-bottom: 3px; width: 30px; height: 30px; border-radius: 50%;">
@@ -43,38 +43,49 @@
 
                                 <div class="form-group mb-4 position-relative d-flex align-items-center" style="padding-right: 30px;" data-toggle="modal" data-target="#exampleModal">
                                     <label for="ID_BORRADO" style="color: rgb(39, 58, 93)">
-
+                                        <i class="fas fa-plus-square" style="margin-right: 5px"></i> Borrado
                                     </label>
-                                    @Html.HiddenFor(model => model.ID_BORRADO, null)
+                                    @Html.DropDownListFor(model => model.ID_BORRADO, null, htmlAttributes: new { @class = "form-control" })
                                     <a href="#" class="d-flex align-items-center justify-content-center position-absolute end-0 top-50 translate-middle-y text-success" style="right: -20px; margin-bottom: 3px; width: 30px; height: 30px; border-radius: 50%;">
                                         <span style="font-size: 1.2rem;">  <strong>+</strong></span>
                                     </a>
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label for="TITULO" class="control-label">
-                                        Titulo
+                                    <label for="FECHA_TERMINADA" style="color: rgb(39, 58, 93)">
 
                                     </label>
-                                    @Html.EditorFor(model => model.TITULO, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.HiddenFor(model => model.FECHA_TERMINADA, new { htmlAttributes = new { @class = "form-control datepicker" } })
+
+                                    @Html.ValidationMessageFor(model => model.FECHA_TERMINADA, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+                                <div class="form-group mb-4">
+                                    <label for="TITULO" class="control-label">
+
+
+                                    </label>
+                                    @Html.HiddenFor(model => model.TITULO, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.TITULO, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="form-group mb-4">
                                     <label for="DESCRIPCION" class="control-label">
-                                        Descripción
+
 
                                     </label>
-                                    @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.HiddenFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="form-group mb-4">
                                     <label for="FECHA_CREACION" style="color: rgb(39, 58, 93)">
-                                        Fecha Creación
+
                                     </label>
-                                    @Html.EditorFor(model => model.FECHA_REGISTRO, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                    <span class="position-absolute top-50 translate-middle-y end-0 me-2" onclick="$(this).prev().focus();"><i class="fas fa-calendar text-muted"></i></span>
+                                    @Html.HiddenFor(model => model.FECHA_REGISTRO, new { htmlAttributes = new { @class = "form-control datepicker" } })
+
                                     @Html.ValidationMessageFor(model => model.FECHA_REGISTRO, "", new { @class = "text-danger" })
                                 </div>
 
@@ -82,6 +93,7 @@
                                     <button type="submit" class="btn btn-primary mr-2">Guardar</button>
                                     <a href="@Url.Action("IndexAll", "Home")" class="btn btn-danger">Cancelar</a>
                                 </div>
+
 
                             }
                         </div>
@@ -93,50 +105,6 @@
 </div>
 
 
-@section scripts {    @Scripts.Render("~/bundles/jqueryval")
-
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script>
-    $(() => {
-        $(".datepicker").datepicker({
-            dateFormat: "yy-mm-dd",
-            showAnim: "slideDown",
-            theme: "base",
-            themeRoller: {
-                primary: "#333333",
-                secondary: "#F5F5F5",
-                text: "#333333",
-                hover: "#F5F5F5",
-                active: "#CCCCCC"
-            }
-        });
-    });
-
-    toggleCalendar = () => {
-        var calendar = document.getElementById("calendar");
-        if (calendar.style.display === "none") {
-            calendar.style.display = "block";
-        } else {
-            calendar.style.display = "none";
-        }
-    }
-
-    $(document).mouseup((e) => {
-        var container = $("#calendar");
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            container.hide();
-        }
-    });
-
-
-</script>
-
-
-
-
-}
 
 
 

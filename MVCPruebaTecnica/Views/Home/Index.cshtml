@@ -2,32 +2,68 @@
     ViewBag.Title = "Home Page";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<style>
+    .container {
+        background: #393944;
+    }
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+    .card {
+        background: white;
+        border-radius: 1rem;
+    }
+
+    .img-fluid {
+        border-radius: 1rem 0 0 1rem;
+    }
+
+    body {
+        background: #393944;
+    }
+
+
+    form {
+        background: white;
+    }
+</style>
+
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="https://www.revistadeck.com/sitio/wp-content/uploads/jardines_verticales-3.jpg"
+                                 alt="login form" class="img-fluid" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <form>
+                                    <div class="d-flex align-items-center mb-3 pb-1" style="margin-top: 5px;">
+                                        <a class="navbar-brand ps-3" href="/" style="color: #f5a442; font-size: 1.3rem;">
+                                            <i class="fas fa-leaf me-2"></i>
+                                            Carlo Bonilla
+                                        </a>
+                                    </div>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">
+                                        Bienvenidos a la prueba técnica de Carlo Bonilla un desarrollador junior, para la empresa Pay Tech Solutions, sobre un listado de Tareas.
+                                    </h5>
+                                   
+                                        
+                                    <ul>
+                                       
+                                        <li>@Html.ActionLink("Tareas", "IndexAll", "Home", new { area = "" }, new { @class = "btn btn-dark" })
+                                        </li>
+
+                                    </ul>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</section>
+}

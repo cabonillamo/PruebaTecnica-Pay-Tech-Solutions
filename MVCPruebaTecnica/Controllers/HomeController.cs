@@ -26,7 +26,7 @@ namespace MVCPruebaTecnica.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Mis contactos";
 
             return View();
         }
@@ -89,6 +89,7 @@ namespace MVCPruebaTecnica.Controllers
         public ActionResult Create()
         {
             ViewBag.idEstadoTarea = listaEstadoTareas();
+            ViewBag.idBorrado = listaBorrado();
             return View();
         }
 
@@ -98,6 +99,14 @@ namespace MVCPruebaTecnica.Controllers
             IServiceEstadoTarea service = new ServiceEstadoTarea();
             IEnumerable<Estado_Tarea> lista = service.GetEstadoTareas();
             return new SelectList(lista, "ID_ESTADO_TAREA", "DESCRIPCION", id);
+        }
+
+        //Get de la lista de la tabla de borrado logico
+        private SelectList listaBorrado(int id = 0)
+        {
+            IServiceBorrado service = new ServiceBorrado();
+            IEnumerable<Borrado_Logico> lista = service.GetBorrado();
+            return new SelectList(lista, "ID_BORRADO", "DESCRIPCION", id);
         }
 
         //Traer la lógica del save
@@ -114,6 +123,7 @@ namespace MVCPruebaTecnica.Controllers
                 else
                 {
                     ViewBag.idEstadoTarea = listaEstadoTareas(trabajo.ID_ESTADO_TAREA);
+                    ViewBag.idBorrado = listaBorrado((int)trabajo.ID_BORRADO);
 
                     if (trabajo.ID_TAREA > 0)
                     {
@@ -160,6 +170,7 @@ namespace MVCPruebaTecnica.Controllers
                 }
 
                 ViewBag.ID_ESTADO_TAREA = listaEstadoTareas(oTrabajo.ID_ESTADO_TAREA);
+                ViewBag.ID_BORRADO = listaBorrado((int)oTrabajo.ID_BORRADO);
                 return View(oTrabajo);
             }
             catch (Exception ex)
@@ -194,6 +205,42 @@ namespace MVCPruebaTecnica.Controllers
                 }
 
                 ViewBag.ID_ESTADO_TAREA = listaEstadoTareas(oTrabajo.ID_ESTADO_TAREA);
+                ViewBag.ID_BORRADO = listaBorrado((int)oTrabajo.ID_BORRADO);
+                return View(oTrabajo);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        //Borrado logico, por la relaciones
+        public ActionResult Delete(int? id)
+        {
+            try
+            {
+                IServiceTarea serviceTarea = new ServiceTarea();
+                Trabajo oTrabajo = null;
+
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                oTrabajo = serviceTarea.GetById(Convert.ToInt32(id));
+
+                if (oTrabajo == null)
+                {
+                    TempData["Message"] = "No existe la Tarea solicitado";
+                    TempData["Redirect"] = "Tarea";
+                    TempData["Redirect-Action"] = "Index";
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.ID_ESTADO_TAREA = listaEstadoTareas(oTrabajo.ID_ESTADO_TAREA);
+                ViewBag.ID_BORRADO = listaBorrado((int)oTrabajo.ID_BORRADO);
                 return View(oTrabajo);
             }
             catch (Exception ex)

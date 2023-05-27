@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PayTechSolutionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Borrado_Logico">
+    <Key>
+      <PropertyRef Name="ID_BORRADO" />
+    </Key>
+    <Property Name="ID_BORRADO" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Borrado_Logico" FromRole="Borrado_Logico" ToRole="Trabajo" />
+  </EntityType>
   <EntityType Name="Estado_Tarea">
     <Key>
       <PropertyRef Name="ID_ESTADO_TAREA" />
@@ -28,8 +36,22 @@
     <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="FECHA_TERMINADA" Type="DateTime" Precision="0" />
+    <Property Name="ID_BORRADO" Type="Int32" />
+    <NavigationProperty Name="Borrado_Logico" Relationship="Self.FK_Trabajo_Borrado_Logico" FromRole="Trabajo" ToRole="Borrado_Logico" />
     <NavigationProperty Name="Estado_Tarea" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Trabajo" ToRole="Estado_Tarea" />
   </EntityType>
+  <Association Name="FK_Trabajo_Borrado_Logico">
+    <End Role="Borrado_Logico" Type="Self.Borrado_Logico" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Borrado_Logico">
+        <PropertyRef Name="ID_BORRADO" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="ID_BORRADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Trabajo_Estado_Tarea">
     <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
     <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
@@ -43,9 +65,14 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="PayTechSolutionsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Borrado_Logico" EntityType="Self.Borrado_Logico" />
     <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+    <AssociationSet Name="FK_Trabajo_Borrado_Logico" Association="Self.FK_Trabajo_Borrado_Logico">
+      <End Role="Borrado_Logico" EntitySet="Borrado_Logico" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
     <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
       <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
       <End Role="Trabajo" EntitySet="Trabajo" />

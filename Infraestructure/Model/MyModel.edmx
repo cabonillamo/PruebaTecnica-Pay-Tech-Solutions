@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PayTechSolutionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Borrado_Logico">
+          <Key>
+            <PropertyRef Name="ID_BORRADO" />
+          </Key>
+          <Property Name="ID_BORRADO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Estado_Tarea">
           <Key>
             <PropertyRef Name="ID_ESTADO_TAREA" />
@@ -32,7 +39,20 @@
           <Property Name="DESCRIPCION" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
           <Property Name="FECHA_TERMINADA" Type="date" />
+          <Property Name="ID_BORRADO" Type="int" />
         </EntityType>
+        <Association Name="FK_Trabajo_Borrado_Logico">
+          <End Role="Borrado_Logico" Type="Self.Borrado_Logico" Multiplicity="0..1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrado_Logico">
+              <PropertyRef Name="ID_BORRADO" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="ID_BORRADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Trabajo_Estado_Tarea">
           <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
           <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
@@ -46,9 +66,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PayTechSolutionsModelStoreContainer">
+          <EntitySet Name="Borrado_Logico" EntityType="Self.Borrado_Logico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Trabajo_Borrado_Logico" Association="Self.FK_Trabajo_Borrado_Logico">
+            <End Role="Borrado_Logico" EntitySet="Borrado_Logico" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
             <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
             <End Role="Trabajo" EntitySet="Trabajo" />
@@ -59,6 +84,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PayTechSolutionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Borrado_Logico">
+          <Key>
+            <PropertyRef Name="ID_BORRADO" />
+          </Key>
+          <Property Name="ID_BORRADO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Borrado_Logico" FromRole="Borrado_Logico" ToRole="Trabajo" />
+        </EntityType>
         <EntityType Name="Estado_Tarea">
           <Key>
             <PropertyRef Name="ID_ESTADO_TAREA" />
@@ -87,8 +120,22 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FECHA_TERMINADA" Type="DateTime" Precision="0" />
+          <Property Name="ID_BORRADO" Type="Int32" />
+          <NavigationProperty Name="Borrado_Logico" Relationship="Self.FK_Trabajo_Borrado_Logico" FromRole="Trabajo" ToRole="Borrado_Logico" />
           <NavigationProperty Name="Estado_Tarea" Relationship="Self.FK_Trabajo_Estado_Tarea" FromRole="Trabajo" ToRole="Estado_Tarea" />
         </EntityType>
+        <Association Name="FK_Trabajo_Borrado_Logico">
+          <End Role="Borrado_Logico" Type="Self.Borrado_Logico" Multiplicity="0..1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrado_Logico">
+              <PropertyRef Name="ID_BORRADO" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="ID_BORRADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Trabajo_Estado_Tarea">
           <End Role="Estado_Tarea" Type="Self.Estado_Tarea" Multiplicity="1" />
           <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
@@ -102,9 +149,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PayTechSolutionsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Borrado_Logico" EntityType="Self.Borrado_Logico" />
           <EntitySet Name="Estado_Tarea" EntityType="Self.Estado_Tarea" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+          <AssociationSet Name="FK_Trabajo_Borrado_Logico" Association="Self.FK_Trabajo_Borrado_Logico">
+            <End Role="Borrado_Logico" EntitySet="Borrado_Logico" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trabajo_Estado_Tarea" Association="Self.FK_Trabajo_Estado_Tarea">
             <End Role="Estado_Tarea" EntitySet="Estado_Tarea" />
             <End Role="Trabajo" EntitySet="Trabajo" />
@@ -116,6 +168,14 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PayTechSolutionsModelStoreContainer" CdmEntityContainer="PayTechSolutionsEntities">
+          <EntitySetMapping Name="Borrado_Logico">
+            <EntityTypeMapping TypeName="PayTechSolutionsModel.Borrado_Logico">
+              <MappingFragment StoreEntitySet="Borrado_Logico">
+                <ScalarProperty Name="ID_BORRADO" ColumnName="ID_BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Estado_Tarea">
             <EntityTypeMapping TypeName="PayTechSolutionsModel.Estado_Tarea">
               <MappingFragment StoreEntitySet="Estado_Tarea">
@@ -144,6 +204,7 @@
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
                 <ScalarProperty Name="FECHA_TERMINADA" ColumnName="FECHA_TERMINADA" />
+                <ScalarProperty Name="ID_BORRADO" ColumnName="ID_BORRADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

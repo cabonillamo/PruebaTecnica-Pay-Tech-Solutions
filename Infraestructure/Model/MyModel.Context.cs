@@ -25,6 +25,7 @@ namespace Infraestructure.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Borrado_Logico> Borrado_Logico { get; set; }
         public virtual DbSet<Estado_Tarea> Estado_Tarea { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Trabajo> Trabajo { get; set; }
