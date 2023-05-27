@@ -26,7 +26,7 @@ namespace MVCPruebaTecnica.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Mis contactos";
+            ViewBag.Message = "Carlo Bonilla";
 
             return View();
         }
@@ -47,6 +47,25 @@ namespace MVCPruebaTecnica.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        public ActionResult IndexAllBy()
+        {
+            try
+            {
+                IEnumerable<Trabajo> lista = null;
+                IServiceTarea serviceTarea = new ServiceTarea();
+                lista = serviceTarea.GetAll();
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+
 
         //Get Tareas Completadas
         public ActionResult IndexTareasCompletadas()
@@ -101,7 +120,7 @@ namespace MVCPruebaTecnica.Controllers
             return new SelectList(lista, "ID_ESTADO_TAREA", "DESCRIPCION", id);
         }
 
-        //Get de la lista de la tabla de borrado logico
+        //Get de la lista de la tabla de borrado lógico
         private SelectList listaBorrado(int id = 0)
         {
             IServiceBorrado service = new ServiceBorrado();
@@ -191,7 +210,7 @@ namespace MVCPruebaTecnica.Controllers
 
                 if (id == null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("IndexAll");
                 }
 
                 oTrabajo = serviceTarea.GetById(Convert.ToInt32(id));
@@ -216,7 +235,7 @@ namespace MVCPruebaTecnica.Controllers
             }
         }
 
-        //Borrado logico, por la relaciones
+        //Borrado lógico, por la relaciones
         public ActionResult Delete(int? id)
         {
             try
@@ -226,9 +245,42 @@ namespace MVCPruebaTecnica.Controllers
 
                 if (id == null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("IndexAll");
                 }
 
+                oTrabajo = serviceTarea.GetById(Convert.ToInt32(id));
+
+                if (oTrabajo == null)
+                {
+                    TempData["Message"] = "No existe la Tarea solicitado";
+                    TempData["Redirect"] = "Tarea";
+                    TempData["Redirect-Action"] = "Index";
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.ID_ESTADO_TAREA = listaEstadoTareas(oTrabajo.ID_ESTADO_TAREA);
+                ViewBag.ID_BORRADO = listaBorrado((int)oTrabajo.ID_BORRADO);
+                return View(oTrabajo);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        //Obtener una Tarea
+        public ActionResult Details(int? id)
+        {
+            IServiceTarea serviceTarea = new ServiceTarea();
+            Trabajo oTrabajo = null;
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("IndexAll");
+                }
                 oTrabajo = serviceTarea.GetById(Convert.ToInt32(id));
 
                 if (oTrabajo == null)

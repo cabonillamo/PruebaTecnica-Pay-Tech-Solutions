@@ -11,7 +11,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryEstadoTarea : IRepositoryEstadoTarea
     {
-        /*Este metodo trae los datos de la base de datos
+        /*Este método trae los datos de la base de datos
          */
         public IEnumerable<Estado_Tarea> GetEstadoTareas()
         {

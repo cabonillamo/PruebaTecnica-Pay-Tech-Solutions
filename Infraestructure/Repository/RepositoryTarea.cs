@@ -14,7 +14,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryTarea : IRepositoryTarea
     {
-        //Este metodo solo trae las tareas que están completadas
+        //Este método solo trae las tareas que están completadas
         public IEnumerable<Trabajo> GetAlCompletadasl()
         {
             try
@@ -40,7 +40,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        //Este metodo trae todas las tareas sin filtro de la base de datos
+        //Este método trae todas las tareas sin filtro de la base de datos
         public IEnumerable<Trabajo> GetAll()
         {
             try
@@ -68,7 +68,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        //Este metodo se trae solo las Tareas pendientes
+        //Este método se trae solo las Tareas pendientes
         public IEnumerable<Trabajo> GetAllPendientes()
         {
             try
@@ -94,7 +94,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        //Este metodo trae ciertas tareas dependiento del identificador
+        //Este método trae ciertas tareas dependiento del identificador
         public Trabajo GetById(int id)
         {
             try
@@ -121,7 +121,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        //Este metodo guarda o edita las tareas en la base de datos
+        //Este método guarda o edita las tareas en la base de datos
         public Trabajo Save(Trabajo trabajo)
         {
             try
@@ -135,7 +135,7 @@ namespace Infraestructure.Repository
 
                     if (oTrabajo == null)
                     {
-                        //Inserta una Tarea y automaticamente que se guarde con el estado pendiente
+                        //Inserta una Tarea y automáticamente que se guarde con el estado pendiente
                         trabajo.ID_ESTADO_TAREA = 2;
                         trabajo.ID_BORRADO = 2;
                         ctx.Trabajo.Add(trabajo);

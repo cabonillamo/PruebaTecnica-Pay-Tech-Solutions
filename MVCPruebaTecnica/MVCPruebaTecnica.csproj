@@ -199,6 +199,8 @@
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\EditFinish.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\IndexAllBy.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

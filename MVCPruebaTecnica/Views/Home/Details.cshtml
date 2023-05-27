@@ -1,0 +1,136 @@
+﻿@model Infraestructure.Model.Trabajo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="card-title">Tarea</h4>
+                <hr />
+                <dl class="row">
+
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-home"></i> @Html.DisplayName("Identificador: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.ID_TAREA)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-users"></i> @Html.DisplayName("Estado: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.ID_ESTADO_TAREA)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-home"></i> @Html.DisplayName("Título: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.TITULO)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-home"></i> @Html.DisplayName("Descripción: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.DESCRIPCION)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-home"></i> @Html.DisplayName("Fecha Registro: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.FECHA_REGISTRO)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        <i class="fas fa-home"></i> @Html.DisplayName("Fecha Terminada: ")
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.FECHA_TERMINADA)
+                    </dd>
+
+
+
+                </dl>
+
+                <div class="form-group text-center">
+                    <div class="btn-group" role="group">
+                       
+                        <a href="@Url.Action("IndexAllBy", "Home")" class="btn btn-danger"><i class="fas fa-times"></i> Volver</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*<h2>Details</h2>
+
+    <div>
+        <h4>Trabajo</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TITULO)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TITULO)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DESCRIPCION)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DESCRIPCION)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_REGISTRO)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_REGISTRO)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_TERMINADA)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_TERMINADA)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Borrado_Logico.DESCRIPCION)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Borrado_Logico.DESCRIPCION)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Estado_Tarea.DESCRIPCION)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Estado_Tarea.DESCRIPCION)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID_TAREA }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

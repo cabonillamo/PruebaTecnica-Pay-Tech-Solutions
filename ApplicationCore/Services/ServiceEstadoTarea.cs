@@ -10,9 +10,9 @@ namespace ApplicationCore.Services
 {
     public class ServiceEstadoTarea : IServiceEstadoTarea
     {
-        /*Este metodo se trae la interface de IServiceEstadoTarea
+        /*Este método se trae la interface de IServiceEstadoTarea
           y crea una conexión entre proyectos MVC para traer los datos
-          de la base de datos que se extrageron en el proyecto de infraestructura
+          de la base de datos que se extrajeron en el proyecto de infraestructura
           folder Repository
         */
         public IEnumerable<Estado_Tarea> GetEstadoTareas()

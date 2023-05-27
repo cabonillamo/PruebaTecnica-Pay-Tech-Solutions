@@ -8,9 +8,7 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Tareas Pendientes</h2>
     <div class="d-flex justify-content-end mb-3">
-        <a href="@Url.Action("Create")" class="btn btn-primary">
-            <i class="fas fa-plus-circle me-2"></i>Crear Tarea
-        </a>
+       
     </div>
 
     <table class="table table-striped">
@@ -38,7 +36,7 @@
                     <td>
                         <div class="d-flex justify-content-center mb-3">
                             <a href="@Url.Action("IndexAll", "Home", new { id = item.ID_TAREA })" class="btn @(item.ID_ESTADO_TAREA == 1 ? "btn-success" : "btn-warning") btn-sm">
-                                <i class="fas @(item.ID_ESTADO_TAREA == 1 ? "fa-check-circle" : "fa-undo-alt") me-2"></i>@(item.ID_ESTADO_TAREA == 1 ? "Se completó" : "Reabrir Tarea")
+                                <i class="fas @(item.ID_ESTADO_TAREA == 1 ? "fa-check-circle" : "fa-undo-alt") me-2"></i>@(item.ID_ESTADO_TAREA == 1 ? "Completada" : "Reabrir Tarea")
                             </a>
                         </div>
                     </td>
